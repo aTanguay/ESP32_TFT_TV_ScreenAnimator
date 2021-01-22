@@ -1,14 +1,12 @@
 /*
-  Animating the screen to look like a little TV screeb for an 'art' project.
+  Animating the TFT screen to look like a little TV screen for an 'art' project.
   This uses a TTGO ESP32 Module with a nice little screen
 
-  Colors are sent in hex
-
-  This sketch uses the GLCD, 2, 4, 6 fonts only.
- 
-  Screen resolution for TTGO is 135X240
-
-  Make sure all the display driver and pin comnenctions are correct by
+  NOTES:
+  * Colors are sent in hex to the screen
+  * This sketch uses the GLCD, 2, 4, 6 fonts only. (Not sure what that is right now)
+  * Screen resolution for TTGO is 135X240 
+  * Make sure all the display driver and pin comnenctions are correct by
   editting the User_Setup.h file in the TFT_eSPI library folder.
 
   #########################################################################
@@ -16,12 +14,16 @@
   #########################################################################
  */
 
-#include <TFT_eSPI.h> // Hardware-specific library
+
+//***************** These are the libraries needed for this *******************************
+#include <TFT_eSPI.h>                   // Hardware-specific library
 #include <SPI.h>
 
-//TFT_eSPI tft = TFT_eSPI();                   // Invoke custom library with default width and height
-TFT_eSPI tft = TFT_eSPI(135, 240);       // Could invoke custom library declaring width and height
+//***************** Set up the screen *******************************
+//TFT_eSPI tft = TFT_eSPI();            // Invoke custom library with default width and height
+TFT_eSPI tft = TFT_eSPI(135, 240);      // Could invoke custom library declaring width and height
 
+//***************** Declare variables *******************************
 unsigned long targetTime = 0;
 byte red = 31;
 byte green = 0;
@@ -30,11 +32,13 @@ byte state = 0;
 unsigned int colour = red << 11; // Colour order is RGB 5+6+5 bits each
 unsigned int var2 = 0;
 
-unsigned long varColor1 = 0x000000;
-unsigned long varColor2 = 0xFFFFFF;
-unsigned long varColorText = 0x000000;
+unsigned long varColor1 = 0x000000;     //var to hold a color
+unsigned long varColor2 = 0x000000;     //var to hold a second color
+unsigned long varColorText = 0x000000;  //var to hold text color
 
 
+
+//********** Below sets up the screen and gets it configured 
 void setup(void) {
   Serial.begin(9600);
   tft.init();
